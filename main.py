@@ -10,14 +10,13 @@ db = client.test # Name of database
 people = db.people # Name of collection
 
 def main():
-    # print(import_people('dataCsv.csv'))
-    print(read_specified_values({"_id":5}, {"_id": 1}))
-    print(read({"_id":1}))
-    #print(create_person("12345","jose","rosado", 2000))
-    # update({"_id":"12345"}, {"first_name":"jeffrey"})
-    
-    #delete({"_id":"12345"})
-    #print(db_count())
+    print('Create: ' + create_person('12345', 'CHRIS', 'CALABRESE', '2002'))
+    print('Read: ')
+    read({'_id': '12345'})
+    print('Update: ')
+    update({'_id': '12345'}, {'first_name': 'CHRIS2'})
+    print('Delete: ')
+    print(delete({'_id': '12345'}))
 
 def import_people(csv_path):
     print('importing csv')
@@ -46,11 +45,11 @@ def db_count():
 
 def update(object_to_update, updated_info):
     people.update_one(object_to_update, {'$set': updated_info})
-    read(object_to_update)#, {})
+    return read(object_to_update)
 
 def delete(object_to_delete):
     people.delete_one(object_to_delete)
-    read(object_to_delete)#, {})
+    return read(object_to_delete)
 
 if __name__ == "__main__":
     main()
