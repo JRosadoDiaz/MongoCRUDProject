@@ -10,13 +10,14 @@ db = client.test # Name of database
 people = db.people # Name of collection
 
 def main():
-    #print(import_people('dataCsv.csv'))
-    #read({"_id":"1"})
+    # print(import_people('dataCsv.csv'))
+    print(read_specified_values({"_id":5}, {"_id": 1}))
+    print(read({"_id":1}))
     #print(create_person("12345","jose","rosado", 2000))
-    update({"_id":"12345"}, {"first_name":"jeffrey"})
+    # update({"_id":"12345"}, {"first_name":"jeffrey"})
     
     #delete({"_id":"12345"})
-    print(db_count())
+    #print(db_count())
 
 def import_people(csv_path):
     print('importing csv')
@@ -30,8 +31,13 @@ def create_person(this_id, first_name, last_name, hire_year):
     result = people.insert_one({'_id': this_id, 'first_name': first_name, 'last_name': last_name, 'hire_year': hire_year})
     return result.inserted_id
 
-def read(query): #(first, second)
-    results = people.find(query) # (first,second)
+def read(query):
+    results = people.find(query)
+    for item in results:
+        print(item)
+
+def read_specified_values(first, second):
+    results = people.find(first, second)
     for item in results:
         print(item)
 
